@@ -46,6 +46,7 @@
 #include "utilityClusteringFunctions.h"
 #include "color_comm.h"
 #include "sync_comm.h"
+#include <sim_api.h>
 
 using namespace std;
 //#define USEHDF5 
@@ -181,6 +182,7 @@ int main(int argc, char** argv) {
         for (long i=0; i<NV; i++) {
             C_orig[i] = -1;
         }
+        SimRoiStart();
         if(opts.coloring != 0){
             runMultiPhaseColoring(G, C_orig, opts.coloring, opts.numColors, replaceMap, opts.minGraphSize, opts.threshold, opts.C_thresh, nT, threadsOpt);
         }else if(opts.syncType != 0){
@@ -188,6 +190,7 @@ int main(int argc, char** argv) {
         }else{
             runMultiPhaseBasic(G, C_orig, opts.basicOpt, opts.minGraphSize, opts.threshold, opts.C_thresh, nT,threadsOpt);
         }
+        SimRoiEnd();
     }
     
     //Check if cluster ids need to be written to a file:

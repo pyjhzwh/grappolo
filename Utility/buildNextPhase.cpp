@@ -113,6 +113,8 @@ double buildNextLevelGraphOpt(graph *Gin, graph *Gout, long *C, long numUniqueCl
     long *vtxPtrOut = (long *) malloc ((NV_out+1)*sizeof(long)); assert(vtxPtrOut != 0);
     vtxPtrOut[0] = 0; //First location is always a zero
     /* Step 1 : Regroup the node into cluster node */
+    // cluPtrIn[i] is a pointer to a map that stores the neighbors of cluster j
+    // cluPtrIn[i][j] stores the number of edges from cluster c to cluster i
     map<long,double>** cluPtrIn = (map<long,double>**) malloc (numUniqueClusters*sizeof(map<long,double>*));
     assert(cluPtrIn != 0);
     
@@ -162,7 +164,7 @@ double buildNextLevelGraphOpt(graph *Gin, graph *Gout, long *C, long numUniqueCl
                     localIterator->second += vtxIndIn[j].weight;
                 } else {
                     (*(cluPtrIn[C[i]]))[C[tail]] = vtxIndIn[j].weight; //Add edge i-->j
-                    __sync_fetch_and_add(&vtxPtrOut[C[i]+1], 1);
+                    __sync_fetch_and_add(&vtxPtrOut[C[i]+1], 1); // Count edge i-->j
                     if(C[i] > C[tail]) {
                         __sync_fetch_and_add(&NE_out, 1); //Keep track of non-self #edges
                         __sync_fetch_and_add(&vtxPtrOut[C[tail]+1], 1); //Count edge j-->i

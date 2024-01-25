@@ -165,8 +165,8 @@ double parallelLouvianMethodScale(graph *G, long *C, int nThreads, double Lower,
     #pragma omp for
     for (long i=0; i<NV; i++) {
 
-      long adj1 = vtxPtr[i];
-      long adj2 = vtxPtr[i+1];
+      long adj1 = vtxPtr[i]; // start of neighbors for vertex i
+      long adj2 = vtxPtr[i+1]; // end of neighbors for vertex i
 	    double selfLoop = 0;
 	  //Build a datastructure to hold the cluster structure of its neighbors      	
 	  map<long, long> clusterLocalMap; //Map each neighbor's cluster to a local number
@@ -255,7 +255,7 @@ double parallelLouvianMethodScale(graph *G, long *C, int nThreads, double Lower,
     //Else update information for the next iteration
     prevMod = currMod;
     if(prevMod < Lower)
-	prevMod = Lower;
+	    prevMod = Lower;
 #pragma omp parallel for 
     for (long i=0; i<nT; i++) {
       map<long,Comm>::iterator it;

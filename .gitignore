@@ -1,0 +1,11 @@
+*.out
+*.o
+*.perf
+dataset/
+r*/
+profile/*
+
+convertFileToBinary
+driverForClusterComparison
+driverForGraphClustering
+driverForGraphClusteringFastTrackResistance

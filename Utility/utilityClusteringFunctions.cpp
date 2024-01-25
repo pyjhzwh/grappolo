@@ -179,7 +179,8 @@ double buildLocalMapCounter(long adj1, long adj2, map<long, long> &clusterLocalM
     if(vtxInd[j].tail == me) {	// SelfLoop need to be recorded
       selfLoop += vtxInd[j].weight;
     }
-    
+    // vtxInd[j].tail is the destination vertex of edge j;
+    // currCommAss[vtxInd[j].tail] is the cluster id of vtxInd[j].tail
     storedAlready = clusterLocalMap.find(currCommAss[vtxInd[j].tail]); //Check if it already exists
     if( storedAlready != clusterLocalMap.end() ) {	//Already exists
       Counter[storedAlready->second]+= vtxInd[j].weight; //Increment the counter with weight

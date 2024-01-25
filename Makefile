@@ -1,4 +1,8 @@
 #GCC Compilers:
+# CC  = icx #gcc
+# CPP = icpx #g++
+# CFLAGS   = -g -O2 -qopenmp -std=c99 -parallel-source-info=2
+# CPPFLAGS = -g -O2 -qopenmp -parallel-source-info=2
 CC  = gcc
 CPP = g++
 CFLAGS   = -g -Ofast -fopenmp -std=c99 
@@ -10,9 +14,12 @@ METIS_HOME = $(HOME)/metis-5.1.0
 METIS_INCLUDE = -I$(METIS_HOME)/include
 METIS_LIB = -L$(METIS_HOME)/lib -lmetis -lm
 
+SNIPER_ROOT = /data3/panyj/snipersim
+SNIPER_INCLUDE = -I$(SNIPER_ROOT)/include
+
 LDFLAGS  = $(CPPFLAGS)
 #INCLUDES = ./DefineStructure/
-INCLUDES = ./DefineStructure/ $(METIS_INCLUDE)
+INCLUDES = ./DefineStructure/ $(METIS_INCLUDE) $(SNIPER_INCLUDE)
 IOFOLDER = ./InputsOutput
 COFOLDER = ./BasicCommunitiesDetection
 UTFOLDER = ./Utility
